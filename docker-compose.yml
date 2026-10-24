@@ -1,0 +1,81 @@
+# Lancement complet : docker compose up --build
+# Ports hôtes peu courants pour cohabiter avec d'autres projets :
+#   app 13000, PostgreSQL 15432, Mailpit (web 18025 / SMTP 11025).
+name: kalendo
+
+x-app-env: &app-env
+  DATABASE_URL: postgresql://kalendo:kalendo@db:5432/kalendo?schema=public
+  # Valeur de développement uniquement : définir AUTH_SECRET dans l'environnement en production.
+  AUTH_SECRET: ${AUTH_SECRET:-dev-only-insecure-secret-change-me-0123456789}
+  AUTH_TRUST_HOST: "true"
+  APP_URL: http://localhost:13000
+  MAIL_TRANSPORT: smtp
+  SMTP_HOST: mailpit
+  SMTP_PORT: "1025"
+  MAIL_FROM: "Kalendo <no-reply@kalendo.local>"
+  REMINDER_CRON: "*/5 * * * *"
+  REMINDER_HOURS_AHEAD: "24"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: kalendo
+      POSTGRES_PASSWORD: kalendo
+      POSTGRES_DB: kalendo
+    ports:
+      - "15432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kalendo -d kalendo"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  # Serveur SMTP local de test (bouchon d'emails) : http://localhost:18025
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports:
+      - "18025:8025"
+      - "11025:1025"
+
+  # Applique les migrations (schéma + RLS + contrainte d'exclusion) puis charge les données de démo.
+  migrate:
+    build: .
+    image: kalendo-app
+    command: ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts"]
+    environment: *app-env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  app:
+    build: .
+    image: kalendo-app
+    command: ["npm", "run", "start"]
+    environment: *app-env
+    ports:
+      - "13000:13000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:13000/api/health || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  worker:
+    build: .
+    image: kalendo-app
+    command: ["npm", "run", "worker"]
+    environment: *app-env
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      mailpit:
+        condition: service_started
+
+volumes:
+  pgdata:
