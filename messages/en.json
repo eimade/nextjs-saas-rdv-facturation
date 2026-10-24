@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Kalendo – Appointments and invoicing for practices",
+    "title": "Uimad Agenda – Appointments and invoicing for practices",
     "description": "Online booking, calendar and simple invoicing for independent practices."
   },
   "common": {
@@ -17,7 +17,7 @@
   "home": {
     "login": "Log in",
     "title": "Appointments, reminders and invoices in one place",
-    "subtitle": "Kalendo replaces paper diaries, WhatsApp and spreadsheets: patients book online, get a reminder the day before, and you invoice in one click.",
+    "subtitle": "Uimad Agenda replaces paper diaries, WhatsApp and spreadsheets: patients book online, get a reminder the day before, and you invoice in one click.",
     "ctaSignup": "Create my practice",
     "ctaDemo": "See a booking page",
     "featuresTitle": "Features",

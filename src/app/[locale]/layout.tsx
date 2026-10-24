@@ -13,7 +13,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
-  return { title: { default: t("title"), template: "%s · Kalendo" }, description: t("description") };
+  return { title: { default: t("title"), template: "%s · Uimad Agenda" }, description: t("description") };
 }
 
 export const viewport: Viewport = {

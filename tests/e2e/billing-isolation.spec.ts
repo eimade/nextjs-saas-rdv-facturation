@@ -3,7 +3,7 @@ import { login } from "./helpers";
 
 test.describe("Facturation", () => {
   test("la secrétaire génère une facture, la marque payée, télécharge PDF et CSV", async ({ page }) => {
-    await login(page, "sophie@demo.kalendo.test");
+    await login(page, "sophie@demo.uimad-agenda.test");
     await page.getByRole("link", { name: "Facturation" }).click();
     await expect(page.getByRole("heading", { level: 1, name: "Facturation" })).toBeVisible();
 
@@ -29,7 +29,7 @@ test.describe("Facturation", () => {
   });
 
   test("un praticien n'a pas accès à la facturation", async ({ page }) => {
-    await login(page, "youssef@demo.kalendo.test");
+    await login(page, "youssef@demo.uimad-agenda.test");
     await expect(page.getByRole("link", { name: "Facturation" })).toHaveCount(0);
     const res = await page.request.get("/api/invoices/export");
     expect(res.status()).toBe(403);
@@ -39,14 +39,14 @@ test.describe("Facturation", () => {
 test.describe("Isolation entre deux cabinets", () => {
   test("le cabinet B ne voit ni ne télécharge les factures du cabinet A", async ({ browser }) => {
     const a = await browser.newPage();
-    await login(a, "claire@demo.kalendo.test");
+    await login(a, "claire@demo.uimad-agenda.test");
     await a.goto("/fr/app/invoices");
     const href = await a.locator('a[href^="/api/invoices/"][href$="/pdf"]').first().getAttribute("href");
     expect(href).toBeTruthy();
     const csvA = await (await a.request.get("/api/invoices/export")).text();
 
     const b = await browser.newPage();
-    await login(b, "nadia@lumiere.kalendo.test");
+    await login(b, "nadia@lumiere.uimad-agenda.test");
     const stolen = await b.request.get(href!);
     expect(stolen.status()).toBe(404);
     const csvB = await (await b.request.get("/api/invoices/export")).text();

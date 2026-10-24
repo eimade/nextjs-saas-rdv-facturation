@@ -1,4 +1,4 @@
-// Kalendo : modèle de données multi-tenant.
+// Uimad Agenda : modèle de données multi-tenant.
 // Toutes les tables portant un tenant_id sont protégées par Row Level Security
 // (voir prisma/migrations/*_rls). Tenant et User sont globales.
 

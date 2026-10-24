@@ -46,7 +46,7 @@ describe("isolation multi-tenant (Row Level Security PostgreSQL)", () => {
   it("sans tenant positionné, aucune ligne n'est visible", async () => {
     await createCabinet("c");
     const rows = await systemDb.$transaction(async (tx) => {
-      await tx.$executeRawUnsafe("SET LOCAL ROLE kalendo_app");
+      await tx.$executeRawUnsafe("SET LOCAL ROLE uimad_agenda_app");
       return tx.service.findMany();
     });
     expect(rows).toHaveLength(0);

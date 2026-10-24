@@ -41,7 +41,7 @@ export async function createCabinet(label = "test"): Promise<TestCabinet> {
     cabinetName: `Cabinet ${label} ${id}`,
     slug: `${label}-${id}`,
     ownerName: `Praticien ${label}`,
-    email: `owner-${id}@test.kalendo.local`,
+    email: `owner-${id}@test.uimad-agenda.local`,
     password: "Password123!",
   });
   const owner = await contextFor(userId);

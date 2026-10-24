@@ -1,4 +1,4 @@
-# Kalendo — SaaS multi-tenant de prise de rendez-vous et de facturation pour cabinets
+# Uimad Agenda — SaaS multi-tenant de prise de rendez-vous et de facturation pour cabinets
 
 [![CI](https://github.com/eimade/nextjs-saas-rdv-facturation/actions/workflows/ci.yml/badge.svg)](https://github.com/eimade/nextjs-saas-rdv-facturation/actions/workflows/ci.yml)
 
@@ -8,7 +8,7 @@ Projet de démonstration (MVP) : Next.js 15 (App Router, Server Actions), React 
 
 Les cabinets indépendants (kinésithérapeutes, orthophonistes, cliniques esthétiques) gèrent rendez-vous, rappels et factures entre agenda papier, WhatsApp et Excel : rendez-vous oubliés, doubles réservations, numéros de facture tenus à la main, aucune vision du chiffre d'affaires.
 
-**Kalendo** donne à chaque cabinet (tenant isolé) :
+**Uimad Agenda** donne à chaque cabinet (tenant isolé) :
 - une **page de réservation publique** accessible, multilingue et pensée mobile ;
 - un **agenda** par praticien avec disponibilités et absences ;
 - une **facturation simple** (PDF numéroté, payé / impayé, export CSV) ;
@@ -19,7 +19,7 @@ Les cabinets indépendants (kinésithérapeutes, orthophonistes, cliniques esth�
 
 | Domaine | Ce qui fonctionne de bout en bout |
 |---|---|
-| Multi-tenant | Inscription d'un cabinet = tenant + compte propriétaire (transaction atomique). Isolation par **Row Level Security PostgreSQL** (`tenant_id`, rôle `kalendo_app` sans privilège, `FORCE ROW LEVEL SECURITY`). |
+| Multi-tenant | Inscription d'un cabinet = tenant + compte propriétaire (transaction atomique). Isolation par **Row Level Security PostgreSQL** (`tenant_id`, rôle `uimad_agenda_app` sans privilège, `FORCE ROW LEVEL SECURITY`). |
 | Équipe | Invitation par email (jeton à usage unique, 7 jours) avec rôle **praticien** ou **secrétariat** ; matrice de permissions par rôle. |
 | Réservation publique | `/{langue}/book/{cabinet}` : prestation + praticien → créneau (14 jours) → coordonnées → confirmation. Créneau revérifié côté serveur. |
 | Agenda | Vue jour / semaine, filtre praticien, statuts honoré / absent / annulé / rétabli. Disponibilités hebdomadaires et absences. |
@@ -43,7 +43,7 @@ docker compose up --build
 |---|---|
 | Application | http://localhost:13000 |
 | Mailpit (emails envoyés : invitations, rappels) | http://localhost:18025 |
-| PostgreSQL | `localhost:15432` (kalendo / kalendo) |
+| PostgreSQL | `localhost:15432` (uimad_agenda / uimad_agenda) |
 
 Le service `migrate` applique les migrations (schéma, RLS, contrainte d'exclusion) puis charge les données de démo. Arrêt : `docker compose down` (ajouter `-v` pour effacer la base).
 
@@ -51,10 +51,10 @@ Le service `migrate` applique les migrations (schéma, RLS, contrainte d'exclusi
 
 | Compte | Cabinet | Rôle |
 |---|---|---|
-| `claire@demo.kalendo.test` | Cabinet Kiné Les Tilleuls (Lyon) | Propriétaire |
-| `youssef@demo.kalendo.test` | Cabinet Kiné Les Tilleuls | Praticien |
-| `sophie@demo.kalendo.test` | Cabinet Kiné Les Tilleuls | Secrétariat |
-| `nadia@lumiere.kalendo.test` | Clinique Lumière (Casablanca, MAD) | Propriétaire (second tenant, sert aux tests d'isolation) |
+| `claire@demo.uimad-agenda.test` | Cabinet Kiné Les Tilleuls (Lyon) | Propriétaire |
+| `youssef@demo.uimad-agenda.test` | Cabinet Kiné Les Tilleuls | Praticien |
+| `sophie@demo.uimad-agenda.test` | Cabinet Kiné Les Tilleuls | Secrétariat |
+| `nadia@lumiere.uimad-agenda.test` | Clinique Lumière (Casablanca, MAD) | Propriétaire (second tenant, sert aux tests d'isolation) |
 
 Page publique : http://localhost:13000/fr/book/cabinet-demo (en arabe : `/ar/book/cabinet-demo`).
 
@@ -92,7 +92,7 @@ npm run worker                    # worker de rappels (autre terminal)
         │  notifications : port SendMail (smtp | console)      │
         └──────────────────────────┬───────────────────────────┘
                                    │ withTenant(tenantId, tx)
-                                   │  SET LOCAL ROLE kalendo_app
+                                   │  SET LOCAL ROLE uimad_agenda_app
                                    │  set_config('app.tenant_id')
         ┌──────────────────────────▼───────────────────────────┐
         │ PostgreSQL 16 (Prisma)                               │
@@ -162,7 +162,7 @@ Captures : voir [`docs/ux/captures`](docs/ux/captures) (réservation mobile fr e
 
 La CI GitHub Actions (`.github/workflows/ci.yml`) exécute à chaque push / PR : lint, typage, tests unitaires, intégration sur PostgreSQL 16, build, E2E + axe, Lighthouse CI.
 
-Les tests d'intégration utilisent la base `kalendo_test` (`TEST_DATABASE_URL`) : `docker exec kalendo-db-1 psql -U kalendo -c "CREATE DATABASE kalendo_test"` la première fois.
+Les tests d'intégration utilisent la base `uimad_agenda_test` (`TEST_DATABASE_URL`) : `docker exec uimad-agenda-db-1 psql -U uimad_agenda -c "CREATE DATABASE uimad_agenda_test"` la première fois.
 
 ### Résultats (exécution locale du 24/10/2026)
 
@@ -184,7 +184,7 @@ Les tests d'intégration utilisent la base `kalendo_test` (`TEST_DATABASE_URL`) 
 
 ## Choix techniques
 
-- **RLS PostgreSQL plutôt qu'un simple filtre applicatif** : chaque transaction « tenant » endosse un rôle sans privilège (`SET LOCAL ROLE kalendo_app`) et positionne `app.tenant_id` ; un oubli de `where tenantId` dans le code ne peut pas fuiter de données. Les rares accès transverses (connexion, résolution d'un slug public, itération du worker) passent par `systemDb`, explicitement nommé.
+- **RLS PostgreSQL plutôt qu'un simple filtre applicatif** : chaque transaction « tenant » endosse un rôle sans privilège (`SET LOCAL ROLE uimad_agenda_app`) et positionne `app.tenant_id` ; un oubli de `where tenantId` dans le code ne peut pas fuiter de données. Les rares accès transverses (connexion, résolution d'un slug public, itération du worker) passent par `systemDb`, explicitement nommé.
 - **Contrainte d'exclusion plutôt qu'un verrou applicatif** : la base est le seul arbitre fiable entre deux réservations simultanées ; l'erreur `23P01` est traduite en message « créneau indisponible » et la liste est rafraîchie.
 - **Numérotation par compteur `INSERT … ON CONFLICT DO UPDATE … RETURNING`** : séquence continue sans trou (obligation légale française), sûre en concurrence.
 - **Fonctions pures pour les règles métier** (`computeSlots`, `computeKpis`, `formatInvoiceNumber`) : testées unitairement sans base.

@@ -7,15 +7,15 @@
 --    Il n'a pas BYPASSRLS : les politiques ci-dessous s'appliquent toujours.
 DO $$
 BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'kalendo_app') THEN
-    CREATE ROLE kalendo_app NOLOGIN;
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'uimad_agenda_app') THEN
+    CREATE ROLE uimad_agenda_app NOLOGIN;
   END IF;
 END
 $$;
 
-GRANT USAGE ON SCHEMA public TO kalendo_app;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO kalendo_app;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO kalendo_app;
+GRANT USAGE ON SCHEMA public TO uimad_agenda_app;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO uimad_agenda_app;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO uimad_agenda_app;
 
 -- Le tenant courant est porté par la variable de session transactionnelle app.tenant_id.
 CREATE OR REPLACE FUNCTION app_current_tenant() RETURNS text

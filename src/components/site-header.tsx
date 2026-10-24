@@ -11,7 +11,7 @@ export async function SiteHeader({ children }: { children?: React.ReactNode }) {
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-3">
         <Link href="/" className="inline-flex items-center gap-2 rounded-md text-lg font-bold text-primary">
           <CalendarCheck aria-hidden className="size-6" />
-          <span>Kalendo</span>
+          <span>Uimad Agenda</span>
           <span className="sr-only"> – {t("home")}</span>
         </Link>
         <div className="flex items-center gap-2">

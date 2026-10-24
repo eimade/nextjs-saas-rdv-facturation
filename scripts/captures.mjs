@@ -30,7 +30,7 @@ await bookingSteps("ar", "light", "reservation-mobile-ar");
 const desk = await browser.newContext({ viewport: { width: 1366, height: 860 } });
 const page = await desk.newPage();
 await page.goto(`${BASE}/fr/login`);
-await page.locator("#email").fill("claire@demo.kalendo.test");
+await page.locator("#email").fill("claire@demo.uimad-agenda.test");
 await page.locator("#password").fill("Demo1234!");
 await page.locator("form button[type=submit]").click();
 await page.waitForURL(/\/fr\/app/);
@@ -45,7 +45,7 @@ for (const [path, name] of [
 const dark = await browser.newContext({ viewport: { width: 1366, height: 860 }, colorScheme: "dark" });
 const p2 = await dark.newPage();
 await p2.goto(`${BASE}/ar/login`);
-await p2.locator("#email").fill("claire@demo.kalendo.test");
+await p2.locator("#email").fill("claire@demo.uimad-agenda.test");
 await p2.locator("#password").fill("Demo1234!");
 await p2.locator("form button[type=submit]").click();
 await p2.waitForURL(/\/ar\/app/);

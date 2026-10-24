@@ -32,10 +32,10 @@ async function main() {
   const passwordHash = await bcrypt.hash(DEMO_PASSWORD, 10);
   const slugs = ["cabinet-demo", "clinique-lumiere"];
   const emails = [
-    "claire@demo.kalendo.test",
-    "youssef@demo.kalendo.test",
-    "sophie@demo.kalendo.test",
-    "nadia@lumiere.kalendo.test",
+    "claire@demo.uimad-agenda.test",
+    "youssef@demo.uimad-agenda.test",
+    "sophie@demo.uimad-agenda.test",
+    "nadia@lumiere.uimad-agenda.test",
   ];
   await prisma.tenant.deleteMany({ where: { slug: { in: slugs } } });
   await prisma.user.deleteMany({ where: { email: { in: emails } } });

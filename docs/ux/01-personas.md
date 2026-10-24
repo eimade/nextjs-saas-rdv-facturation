@@ -23,7 +23,7 @@ Les deux personas sont des **profils types construits à partir de la problémat
 - Les numéros de facture tenus à la main (trous, doublons).
 - Les patients qui oublient leur rendez-vous (no-show ≈ 1 sur 10).
 
-**Ce que Kalendo doit lui apporter** : tableau de bord KPI, agenda jour/semaine, facturation depuis un rendez-vous « honoré », numérotation automatique par cabinet, rappels automatiques la veille.
+**Ce que Uimad Agenda doit lui apporter** : tableau de bord KPI, agenda jour/semaine, facturation depuis un rendez-vous « honoré », numérotation automatique par cabinet, rappels automatiques la veille.
 
 ---
 
@@ -46,4 +46,4 @@ Les deux personas sont des **profils types construits à partir de la problémat
 - Sites qui « cassent » en arabe (texte mal aligné, flèches dans le mauvais sens).
 - Créneaux affichés qui sont en réalité déjà pris.
 
-**Ce que Kalendo doit lui apporter** : page publique en 3 étapes, mobile d'abord, interface fr/en/ar avec RTL natif, revérification serveur du créneau, rappel email dans la langue choisie lors de la réservation.
+**Ce que Uimad Agenda doit lui apporter** : page publique en 3 étapes, mobile d'abord, interface fr/en/ar avec RTL natif, revérification serveur du créneau, rappel email dans la langue choisie lors de la réservation.

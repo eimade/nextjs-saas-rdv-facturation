@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Kalendo – Rendez-vous et facturation pour cabinets",
+    "title": "Uimad Agenda – Rendez-vous et facturation pour cabinets",
     "description": "Prise de rendez-vous en ligne, agenda et facturation simple pour les cabinets indépendants."
   },
   "common": {
@@ -17,7 +17,7 @@
   "home": {
     "login": "Se connecter",
     "title": "Vos rendez-vous, rappels et factures au même endroit",
-    "subtitle": "Kalendo remplace l'agenda papier, WhatsApp et Excel : vos patients réservent en ligne, reçoivent un rappel la veille, et vous facturez en un clic.",
+    "subtitle": "Uimad Agenda remplace l'agenda papier, WhatsApp et Excel : vos patients réservent en ligne, reçoivent un rappel la veille, et vous facturez en un clic.",
     "ctaSignup": "Créer mon cabinet",
     "ctaDemo": "Voir une page de réservation",
     "featuresTitle": "Fonctionnalités",

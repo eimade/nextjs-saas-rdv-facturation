@@ -39,7 +39,7 @@ test.describe("espace cabinet", () => {
   test.setTimeout(120_000); // 6 pages auditées par test
   for (const locale of ["fr", "ar"]) {
     test(`axe WCAG AA : pages connectées (${locale})`, async ({ page }) => {
-      await login(page, "claire@demo.kalendo.test", locale);
+      await login(page, "claire@demo.uimad-agenda.test", locale);
       for (const p of appPages) {
         await page.goto(`/${locale}${p}`);
         await audit(page);
@@ -49,7 +49,7 @@ test.describe("espace cabinet", () => {
 
   test("axe WCAG AA : tableau de bord en mode sombre", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark" });
-    await login(page, "claire@demo.kalendo.test");
+    await login(page, "claire@demo.uimad-agenda.test");
     await expect(page.locator("html")).toHaveClass(/dark/);
     await audit(page);
   });

@@ -5,7 +5,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
  *
  * Deux contextes d'accès :
  *  - `withTenant(tenantId, fn)` : transaction qui endosse le rôle sans privilège
- *    `kalendo_app` (SET LOCAL ROLE) et positionne `app.tenant_id`. Les politiques RLS
+ *    `uimad_agenda_app` (SET LOCAL ROLE) et positionne `app.tenant_id`. Les politiques RLS
  *    PostgreSQL filtrent alors toutes les lectures/écritures sur ce tenant.
  *  - `systemDb` : connexion du rôle propriétaire, réservée aux opérations transverses
  *    explicitement identifiées (connexion, inscription, acceptation d'invitation,
@@ -20,7 +20,7 @@ export type Tx = Prisma.TransactionClient;
 
 export const systemDb = prisma;
 
-export const APP_DB_ROLE = "kalendo_app";
+export const APP_DB_ROLE = "uimad_agenda_app";
 
 /** Bascule la transaction courante dans le contexte RLS d'un tenant. */
 export async function enterTenant(tx: Tx, tenantId: string): Promise<void> {

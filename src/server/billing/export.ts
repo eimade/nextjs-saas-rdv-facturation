@@ -112,7 +112,7 @@ export async function buildInvoicePdf(invoice: InvoiceExportRow, issuer: IssuerI
   const status = invoice.status === "PAID" && invoice.paidAt ? `Payée le ${day(invoice.paidAt)}` : "En attente de paiement";
   text(status, 50, 480, 11, bold, invoice.status === "PAID" ? rgb(0.05, 0.45, 0.2) : rgb(0.65, 0.15, 0.1));
   text("TVA non applicable, article 261-4-1° du CGI (actes de soins).", 50, 80, 8, font, muted);
-  text("Document généré par Kalendo.", 50, 66, 8, font, muted);
+  text("Document généré par Uimad Agenda.", 50, 66, 8, font, muted);
 
   return pdf.save();
 }

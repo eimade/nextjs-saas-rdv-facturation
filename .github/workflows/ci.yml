@@ -17,16 +17,16 @@ jobs:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_USER: kalendo
-          POSTGRES_PASSWORD: kalendo
-          POSTGRES_DB: kalendo
+          POSTGRES_USER: uimad_agenda
+          POSTGRES_PASSWORD: uimad_agenda
+          POSTGRES_DB: uimad_agenda
         ports: ["15432:5432"]
         options: >-
-          --health-cmd "pg_isready -U kalendo -d kalendo"
+          --health-cmd "pg_isready -U uimad_agenda -d uimad_agenda"
           --health-interval 5s --health-timeout 5s --health-retries 20
     env:
-      DATABASE_URL: postgresql://kalendo:kalendo@localhost:15432/kalendo?schema=public
-      TEST_DATABASE_URL: postgresql://kalendo:kalendo@localhost:15432/kalendo_test?schema=public
+      DATABASE_URL: postgresql://uimad_agenda:uimad_agenda@localhost:15432/uimad_agenda?schema=public
+      TEST_DATABASE_URL: postgresql://uimad_agenda:uimad_agenda@localhost:15432/uimad_agenda_test?schema=public
       AUTH_SECRET: ci-only-secret-not-used-in-production-0123456789
       AUTH_TRUST_HOST: "true"
       APP_URL: http://localhost:13000
@@ -45,7 +45,7 @@ jobs:
         run: npm test
       - name: Tests d'intégration (PostgreSQL réel, RLS, contrainte d'exclusion)
         run: |
-          PGPASSWORD=kalendo psql -h localhost -p 15432 -U kalendo -d kalendo -c "CREATE DATABASE kalendo_test"
+          PGPASSWORD=uimad_agenda psql -h localhost -p 15432 -U uimad_agenda -d uimad_agenda -c "CREATE DATABASE uimad_agenda_test"
           npm run test:integration
       - name: Base de démo
         run: npm run db:setup

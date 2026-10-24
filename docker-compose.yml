@@ -1,10 +1,10 @@
 # Lancement complet : docker compose up --build
 # Ports hôtes peu courants pour cohabiter avec d'autres projets :
 #   app 13000, PostgreSQL 15432, Mailpit (web 18025 / SMTP 11025).
-name: kalendo
+name: uimad-agenda
 
 x-app-env: &app-env
-  DATABASE_URL: postgresql://kalendo:kalendo@db:5432/kalendo?schema=public
+  DATABASE_URL: postgresql://uimad_agenda:uimad_agenda@db:5432/uimad_agenda?schema=public
   # Valeur de développement uniquement : définir AUTH_SECRET dans l'environnement en production.
   AUTH_SECRET: ${AUTH_SECRET:-dev-only-insecure-secret-change-me-0123456789}
   AUTH_TRUST_HOST: "true"
@@ -12,7 +12,7 @@ x-app-env: &app-env
   MAIL_TRANSPORT: smtp
   SMTP_HOST: mailpit
   SMTP_PORT: "1025"
-  MAIL_FROM: "Kalendo <no-reply@kalendo.local>"
+  MAIL_FROM: "Uimad Agenda <no-reply@uimad-agenda.local>"
   REMINDER_CRON: "*/5 * * * *"
   REMINDER_HOURS_AHEAD: "24"
 
@@ -20,15 +20,15 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: kalendo
-      POSTGRES_PASSWORD: kalendo
-      POSTGRES_DB: kalendo
+      POSTGRES_USER: uimad_agenda
+      POSTGRES_PASSWORD: uimad_agenda
+      POSTGRES_DB: uimad_agenda
     ports:
       - "15432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kalendo -d kalendo"]
+      test: ["CMD-SHELL", "pg_isready -U uimad_agenda -d uimad_agenda"]
       interval: 3s
       timeout: 3s
       retries: 20
@@ -43,7 +43,7 @@ services:
   # Applique les migrations (schéma + RLS + contrainte d'exclusion) puis charge les données de démo.
   migrate:
     build: .
-    image: kalendo-app
+    image: uimad-agenda-app
     command: ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts"]
     environment: *app-env
     depends_on:
@@ -52,7 +52,7 @@ services:
 
   app:
     build: .
-    image: kalendo-app
+    image: uimad-agenda-app
     command: ["npm", "run", "start"]
     environment: *app-env
     ports:
@@ -68,7 +68,7 @@ services:
 
   worker:
     build: .
-    image: kalendo-app
+    image: uimad-agenda-app
     command: ["npm", "run", "worker"]
     environment: *app-env
     depends_on:

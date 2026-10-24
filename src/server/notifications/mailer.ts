@@ -14,7 +14,7 @@ export interface MailMessage {
  */
 export type SendMail = (message: MailMessage) => Promise<void>;
 
-const FROM = () => process.env.MAIL_FROM ?? "Kalendo <no-reply@kalendo.local>";
+const FROM = () => process.env.MAIL_FROM ?? "Uimad Agenda <no-reply@uimad-agenda.local>";
 
 let transporter: Transporter | null = null;
 

@@ -1,4 +1,4 @@
-# Dossier UX — Kalendo
+# Dossier UX — Uimad Agenda
 
 Démarche suivie : **besoin → personas → parcours → wireframes → intégration → tests (outillés et manuels) → itérations**.
 

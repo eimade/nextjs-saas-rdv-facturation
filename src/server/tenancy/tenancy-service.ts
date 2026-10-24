@@ -95,8 +95,8 @@ export async function inviteMember(ctx: TenantContext, input: unknown, sendMail:
   try {
     await sendMail({
       to: data.email,
-      subject: `Invitation à rejoindre ${ctx.tenantName} sur Kalendo`,
-      text: `Bonjour,\n\n${ctx.userName} vous invite à rejoindre ${ctx.tenantName} sur Kalendo.\nCréez votre compte : ${url}\n\nCe lien expire dans ${INVITE_TTL_DAYS} jours.`,
+      subject: `Invitation à rejoindre ${ctx.tenantName} sur Uimad Agenda`,
+      text: `Bonjour,\n\n${ctx.userName} vous invite à rejoindre ${ctx.tenantName} sur Uimad Agenda.\nCréez votre compte : ${url}\n\nCe lien expire dans ${INVITE_TTL_DAYS} jours.`,
     });
   } catch (error) {
     // L'invitation reste valable : le lien est aussi affiché dans l'écran Équipe.

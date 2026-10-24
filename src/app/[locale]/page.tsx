@@ -62,13 +62,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <p className="mt-2">{t("demoText")}</p>
           <ul className="mt-2 list-disc ps-5">
             <li>
-              <code>claire@demo.kalendo.test</code> – {t("roleOwner")}
+              <code>claire@demo.uimad-agenda.test</code> – {t("roleOwner")}
             </li>
             <li>
-              <code>youssef@demo.kalendo.test</code> – {t("rolePractitioner")}
+              <code>youssef@demo.uimad-agenda.test</code> – {t("rolePractitioner")}
             </li>
             <li>
-              <code>sophie@demo.kalendo.test</code> – {t("roleSecretary")}
+              <code>sophie@demo.uimad-agenda.test</code> – {t("roleSecretary")}
             </li>
           </ul>
           <p className="mt-2">
