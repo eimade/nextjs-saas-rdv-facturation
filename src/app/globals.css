@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* Mode sombre piloté par la classe .dark (next-themes) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Palette shadcn/ui ; contrastes vérifiés WCAG 2.1 AA (texte ≥ 4.5:1) en clair et en sombre */
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --muted: #f3f4f6;
+  --muted-foreground: #4b5563;
+  --border: #d1d5db;
+  --input: #6b7280;
+  --primary: #0b5c8a;
+  --primary-foreground: #ffffff;
+  --secondary: #e5eef5;
+  --secondary-foreground: #0b3a57;
+  --accent: #eef6fb;
+  --accent-foreground: #0b3a57;
+  --destructive: #b42318;
+  --destructive-foreground: #ffffff;
+  --success: #067647;
+  --warning: #93370d;
+  --ring: #0b5c8a;
+  --radius: 0.6rem;
+}
+
+.dark {
+  --background: #0b1220;
+  --foreground: #e5e7eb;
+  --card: #111a2c;
+  --card-foreground: #e5e7eb;
+  --muted: #1b2638;
+  --muted-foreground: #a7b0be;
+  --border: #2c3a52;
+  --input: #8391a7;
+  --primary: #7cc4f5;
+  --primary-foreground: #06243a;
+  --secondary: #1d3147;
+  --secondary-foreground: #d6e9f8;
+  --accent: #1b2a3f;
+  --accent-foreground: #d6e9f8;
+  --destructive: #f97066;
+  --destructive-foreground: #1f0805;
+  --success: #47cd89;
+  --warning: #fdb022;
+  --ring: #7cc4f5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-ring: var(--ring);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Arabic", Tahoma, sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
