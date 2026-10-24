@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: kalendo
+          POSTGRES_PASSWORD: kalendo
+          POSTGRES_DB: kalendo
+        ports: ["15432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U kalendo -d kalendo"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://kalendo:kalendo@localhost:15432/kalendo?schema=public
+      TEST_DATABASE_URL: postgresql://kalendo:kalendo@localhost:15432/kalendo_test?schema=public
+      AUTH_SECRET: ci-only-secret-not-used-in-production-0123456789
+      AUTH_TRUST_HOST: "true"
+      APP_URL: http://localhost:13000
+      MAIL_TRANSPORT: console
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate
+      - name: Lint et typage
+        run: npm run lint && npm run typecheck
+      - name: Tests unitaires (Vitest)
+        run: npm test
+      - name: Tests d'intégration (PostgreSQL réel, RLS, contrainte d'exclusion)
+        run: |
+          PGPASSWORD=kalendo psql -h localhost -p 15432 -U kalendo -d kalendo -c "CREATE DATABASE kalendo_test"
+          npm run test:integration
+      - name: Base de démo
+        run: npm run db:setup
+      - name: Build
+        run: npm run build
+      - name: Démarrage de l'application
+        run: |
+          npm run start &
+          npx --yes wait-on --timeout 60000 http://localhost:13000/api/health
+      - name: E2E + accessibilité axe-core (Playwright)
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+      - name: Lighthouse CI (accessibilité >= 90)
+        run: npm run db:seed && npm run lhci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rapports
+          path: |
+            playwright-report/
+            .lighthouseci/
+          retention-days: 7

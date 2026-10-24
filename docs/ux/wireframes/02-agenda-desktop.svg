@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="640" viewBox="0 0 1100 640" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+  <title>Wireframe basse fidélité : agenda praticien, vue semaine (desktop)</title>
+  <style>
+    .box{fill:#f1f1f1;stroke:#999}
+    .appt{fill:#e3eef6;stroke:#0b5c8a}
+    .done{fill:#e6f4ec;stroke:#067647}
+    .ns{fill:#fdecea;stroke:#b42318}
+    .btn{fill:#0b5c8a}.btnt{fill:#fff;font-weight:600}
+    .ghost{fill:#fff;stroke:#555}
+    .h{font-weight:700;font-size:15px}
+    .note{fill:#b42318;font-size:12px}
+    .muted{fill:#666;font-size:12px}
+  </style>
+  <rect width="1100" height="640" fill="#fafafa"/>
+  <rect x="10" y="10" width="1080" height="580" fill="#fff" stroke="#333" stroke-width="2" rx="8"/>
+  <rect x="10" y="10" width="1080" height="44" class="box"/>
+  <text x="26" y="38" class="h">Kalendo</text><text x="760" y="38">Claire Martin · Propriétaire   FR EN ع  ☾  Déconnexion</text>
+
+  <!-- navigation latérale -->
+  <text x="26" y="84" font-weight="700">Cabinet Kiné Les Tilleuls</text>
+  <rect x="20" y="96" width="170" height="30" class="box" rx="4"/><text x="32" y="116">▦ Tableau de bord</text>
+  <rect x="20" y="130" width="170" height="30" class="appt" rx="4"/><text x="32" y="150" font-weight="700">▤ Agenda  (aria-current)</text>
+  <text x="32" y="184">◷ Disponibilités</text><text x="32" y="214">▧ Facturation</text><text x="32" y="244">✚ Prestations</text><text x="32" y="274">☺ Équipe</text>
+
+  <!-- barre d'outils -->
+  <text x="220" y="86" class="h" font-size="18">Agenda</text>
+  <rect x="220" y="100" width="120" height="32" class="ghost" rx="4"/><text x="236" y="121">Jour | Semaine</text>
+  <rect x="350" y="100" width="190" height="32" class="ghost" rx="4"/><text x="362" y="121">Praticien : Tous ▾</text>
+  <rect x="550" y="100" width="210" height="32" class="ghost" rx="4"/><text x="562" y="121">◀  Semaine du 19 oct.  ▶</text>
+  <rect x="770" y="100" width="100" height="32" class="ghost" rx="4"/><text x="784" y="121">Aujourd'hui</text>
+
+  <!-- vue semaine en liste par jour -->
+  <g transform="translate(220,150)">
+    <text y="0" font-weight="700">Lundi 19 octobre</text>
+    <rect y="10" width="840" height="56" class="done" rx="6"/>
+    <text x="12" y="32" font-weight="600">09:00–09:30  Lucas Bernard</text><text x="12" y="52" class="muted">Séance de kinésithérapie · Claire Martin · Honoré</text>
+    <rect x="690" y="22" width="130" height="32" class="btn" rx="4"/><text x="726" y="43" class="btnt">Facturer</text>
+    <rect y="74" width="840" height="56" class="ns" rx="6"/>
+    <text x="12" y="96" font-weight="600">10:00–10:45  Emma Petit</text><text x="12" y="116" class="muted">Bilan initial · Youssef Benali · Absent</text>
+    <rect x="720" y="86" width="100" height="32" class="ghost" rx="4"/><text x="738" y="107">Rétablir</text>
+    <text y="158" font-weight="700">Mardi 20 octobre</text>
+    <rect y="168" width="840" height="56" class="appt" rx="6"/>
+    <text x="12" y="190" font-weight="600">14:00–14:30  Amine Haddad</text><text x="12" y="210" class="muted">Séance de kinésithérapie · Claire Martin · Réservé</text>
+    <rect x="560" y="180" width="80" height="32" class="ghost" rx="4"/><text x="574" y="201">Honoré</text>
+    <rect x="648" y="180" width="80" height="32" class="ghost" rx="4"/><text x="664" y="201">Absent</text>
+    <rect x="736" y="180" width="84" height="32" class="ghost" rx="4"/><text x="750" y="201">Annuler</text>
+    <rect y="232" width="840" height="56" class="box" rx="6"/>
+    <text x="12" y="254" font-weight="600">16:00–16:30  Sarah Cohen</text><text x="12" y="274" class="muted">Facture F-2026-0012 (lien PDF)</text>
+  </g>
+  <text x="220" y="470" class="note">① Une liste chronologique par jour (h2 + ul) plutôt qu'une grille horaire : 7 colonnes en grand écran, empilées sur mobile.</text>
+  <text x="220" y="488" class="note">② Statut porté par le texte ET la couleur (jamais la couleur seule, WCAG 1.4.1).</text>
+  <text x="220" y="506" class="note">③ Boutons « Honoré / Absent » affichés seulement quand la séance a commencé ; « Facturer » seulement si honoré.</text>
+  <text x="220" y="524" class="note">④ Nom accessible = texte visible + contexte (« Honoré : 14:00 Amine Haddad ») — itération après audit axe (WCAG 2.5.3).</text>
+  <text x="220" y="542" class="note">⑤ Un praticien ne voit que son agenda : le filtre « Praticien » disparaît pour lui.</text>
+  <text x="20" y="620" class="muted">Wireframe SVG basse fidélité (remplace la maquette Figma). Couleurs indicatives, palette finale dans src/app/globals.css.</text>
+</svg>

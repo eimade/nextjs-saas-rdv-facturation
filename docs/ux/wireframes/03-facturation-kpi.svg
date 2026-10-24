@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+  <title>Wireframe basse fidélité : tableau de bord KPI et facturation</title>
+  <style>
+    .box{fill:#f1f1f1;stroke:#999}
+    .card{fill:#fff;stroke:#999}
+    .btn{fill:#0b5c8a}.btnt{fill:#fff;font-weight:600}
+    .ghost{fill:#fff;stroke:#555}
+    .h{font-weight:700;font-size:15px}
+    .big{font-weight:700;font-size:26px}
+    .note{fill:#b42318;font-size:12px}
+    .muted{fill:#666;font-size:12px}
+  </style>
+  <rect width="1100" height="620" fill="#fafafa"/>
+  <!-- Tableau de bord -->
+  <g transform="translate(10,10)">
+    <rect width="530" height="560" fill="#fff" stroke="#333" stroke-width="2" rx="8"/>
+    <text x="20" y="36" class="h" font-size="18">Tableau de bord</text><text x="20" y="56" class="muted">Indicateurs d'octobre 2026</text>
+    <rect x="330" y="20" width="180" height="32" class="ghost" rx="4"/><text x="342" y="41">Ma page de réservation ↗</text>
+    <g transform="translate(20,74)">
+      <rect width="235" height="100" class="card" rx="6"/><text x="12" y="24">Taux de remplissage</text><text x="12" y="62" class="big">38 %</text><text x="12" y="86" class="muted">réservé / ouvert</text>
+      <rect x="255" width="235" height="100" class="card" rx="6"/><text x="267" y="24">Taux de no-show</text><text x="267" y="62" class="big">9 %</text><text x="267" y="86" class="muted">4 absences</text>
+      <rect y="112" width="235" height="100" class="card" rx="6"/><text x="12" y="136">CA facturé</text><text x="12" y="174" class="big">2 345 €</text><text x="12" y="198" class="muted">Dont encaissé : 1 980 €</text>
+      <rect x="255" y="112" width="235" height="100" class="card" rx="6"/><text x="267" y="136">Reste à encaisser</text><text x="267" y="174" class="big">365 €</text><text x="267" y="198" class="muted">factures impayées</text>
+    </g>
+    <text x="20" y="316" class="h">Aujourd'hui</text>
+    <rect x="20" y="326" width="490" height="40" class="box" rx="4"/><text x="32" y="351">09:00  Lucas Bernard · Séance · Claire Martin</text>
+    <rect x="20" y="372" width="490" height="40" class="box" rx="4"/><text x="32" y="397">10:30  Hugo Moreau · Bilan · Youssef Benali</text>
+    <text x="20" y="450" class="note">① 4 cartes = les 3 questions de Claire (remplissage,</text>
+    <text x="20" y="466" class="note">   no-show, CA) + l'encaissement. Grille 2×2 → 1 colonne</text>
+    <text x="20" y="482" class="note">   sur mobile.</text>
+    <text x="20" y="502" class="note">② Chaque KPI a une phrase d'aide (définition du calcul).</text>
+    <text x="20" y="522" class="note">③ « — » si aucune donnée (pas de 0 % trompeur).</text>
+  </g>
+  <!-- Facturation -->
+  <g transform="translate(560,10)">
+    <rect width="530" height="560" fill="#fff" stroke="#333" stroke-width="2" rx="8"/>
+    <text x="20" y="36" class="h" font-size="18">Facturation</text>
+    <rect x="370" y="18" width="140" height="32" class="ghost" rx="4"/><text x="384" y="39">⇩ Exporter en CSV</text>
+    <text x="20" y="80" class="h">Séances honorées à facturer</text>
+    <rect x="20" y="90" width="490" height="44" class="box" rx="4"/><text x="32" y="117">19/10 Lucas Bernard · Séance · 35 €</text>
+    <rect x="370" y="96" width="130" height="32" class="btn" rx="4"/><text x="384" y="117" class="btnt">Créer la facture</text>
+    <text x="20" y="170" class="h">Factures</text>
+    <rect x="20" y="180" width="70" height="28" class="btn" rx="4"/><text x="34" y="199" class="btnt">Toutes</text>
+    <rect x="96" y="180" width="86" height="28" class="ghost" rx="4"/><text x="108" y="199">Impayées</text>
+    <rect x="188" y="180" width="76" height="28" class="ghost" rx="4"/><text x="200" y="199">Payées</text>
+    <rect x="20" y="220" width="490" height="30" class="box"/><text x="28" y="240" font-weight="700">Numéro      Date      Patient      Montant   Statut      Actions</text>
+    <rect x="20" y="250" width="490" height="40" class="card"/><text x="28" y="275">F-2026-0013  19/10  L. Bernard   35 €   Impayée</text>
+    <rect x="390" y="256" width="40" height="28" class="ghost" rx="4"/><text x="398" y="275">PDF</text>
+    <rect x="436" y="256" width="68" height="28" class="ghost" rx="4"/><text x="440" y="275" font-size="11">Marquer payée</text>
+    <rect x="20" y="290" width="490" height="40" class="card"/><text x="28" y="315">F-2026-0012  16/10  S. Cohen     35 €   Payée le 17/10</text>
+    <text x="20" y="370" class="note">④ Le flux suit l'ordre réel : séance honorée → facture → paiement.</text>
+    <text x="20" y="388" class="note">⑤ Numéro F-AAAA-NNNN attribué par la base (compteur par</text>
+    <text x="20" y="404" class="note">   cabinet et par année, sans trou ni doublon).</text>
+    <text x="20" y="424" class="note">⑥ Vrai tableau HTML (th scope) ; sur mobile, défilement horizontal.</text>
+    <text x="20" y="444" class="note">⑦ Filtres = liens (URL partageable, ?status=UNPAID).</text>
+    <text x="20" y="464" class="note">⑧ CSV « ; » + BOM UTF-8 : s'ouvre directement dans Excel fr.</text>
+  </g>
+  <text x="10" y="600" class="muted">Wireframes SVG basse fidélité réalisés avant intégration (remplacent la maquette Figma, voir README).</text>
+</svg>
